@@ -21,7 +21,7 @@
     "node": ">=0.10.7"
   },
   "dependencies": {
-    "esprima": "~2.4.1",
+    "acorn": "^1.0.3",
     "falafel": "~1.2.0",
     "xtend": "~4.0.0"
   },

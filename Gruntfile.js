@@ -48,13 +48,13 @@ module.exports = function(grunt) {
       }
     },
     concat: {
-      esprima: {
+      acorn: {
         options: {
           banner: '(function(define){\n',
           footer: '\n})(null);<%= "" %>'
         },
-        src: ['node_modules/esprima/esprima.js'],
-        dest: '.tmp/esprima.js'
+        src: ['node_modules/acorn/dist/acorn.js'],
+        dest: '.tmp/acorn.js'
       },
       falafel: {
         options: {
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                   ' * https://github.com/substack/node-falafel\n' +
                   ' */\n\n' +
                   '(function(require,module){\n',
-          footer: '\nwindow.falafel = module.exports;})(function(){return {parse: esprima.parse};},{exports: {}});'
+          footer: '\nwindow.falafel = module.exports;})(function(){return {parse: acorn.parse};},{exports: {}});'
         },
         src: ['node_modules/falafel/index.js'],
         dest: '.tmp/falafel.js'
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         },
         src: [
           'src/qunit/noautorun.js',
-          '<%= concat.esprima.dest %>',
+          '<%= concat.acorn.dest %>',
           '<%= concat.falafel.dest %>',
           'src/blanket.js',
           'src/blanket_browser.js',
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
           banner: '<%= banner %>'
         },
         src: [
-          '<%= concat.esprima.dest %>',
+          '<%= concat.acorn.dest %>',
           '<%= concat.falafel.dest %>',
           'src/blanket.js',
           'src/blanket_browser.js',
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
           banner: '<%= banner %>'
         },
         src: [
-          '<%= concat.esprima.dest %>',
+          '<%= concat.acorn.dest %>',
           '<%= concat.falafel.dest %>',
           'src/blanket.js',
           'src/blanket_browser.js',
