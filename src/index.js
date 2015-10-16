@@ -58,6 +58,11 @@ var blanketNode = function (userOptions,cli){
             if (option === "data-cover-customVariable"){
                 newOptions.customVariable = optionValue;
             }
+            if (option === "data-cover-emacVersion"){
+                newOptions.emacVersion = optionValue;
+            } else {
+                newOptions.emacVersion = 5;
+            }
             if (option === "data-cover-flags"){
                 newOptions.order = !optionValue.unordered;
                 newOptions.ignoreScriptError = !!optionValue.ignoreError;
@@ -154,7 +159,8 @@ var blanketNode = function (userOptions,cli){
 
                 blanket.instrument({
                     inputFile: content,
-                    inputFileName: inputFilename
+                    inputFileName: inputFilename,
+                    emacVersion: _blanket.options("emacVersion")
                 },function(instrumented){
                     var baseDirPath = blanket.normalizeBackslashes(path.dirname(filename))+'/.';
                     try{
