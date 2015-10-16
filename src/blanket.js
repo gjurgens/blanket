@@ -103,7 +103,7 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
             //return instrumented code if available.
             var inFile = config.inputFile,
                 inFileName = config.inputFileName,
-                emacVersion = config.emacVersion;
+                ecmaVersion = config.ecmaVersion;
             //check instrument cache
            if (_blanket.options("instrumentCache") && sessionStorage && sessionStorage.getItem("blanket_instrument_store-"+inFileName)){
                 if (_blanket.options("debug")) {console.log("BLANKET-Reading instrumentation from cache: ",inFileName);}
@@ -113,7 +113,7 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
                 _blanket._trackingArraySetup=[];
                 //remove shebang
                 inFile = inFile.replace(/^\#\!.*/, "");
-                var instrumented =  parseAndModify(inFile,{locations:true,comment:true,emacVersion:emacVersion}, _blanket._addTracking(inFileName));
+                var instrumented =  parseAndModify(inFile,{locations:true,comment:true,ecmaVersion:ecmaVersion}, _blanket._addTracking(inFileName));
                 instrumented = _blanket._trackingSetup(inFileName,sourceArray)+instrumented;
                 if (_blanket.options("sourceURL")){
                     instrumented += "\n//@ sourceURL="+inFileName.replace("http://","");
