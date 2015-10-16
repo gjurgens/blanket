@@ -112,7 +112,7 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
                 _blanket._trackingArraySetup=[];
                 //remove shebang
                 inFile = inFile.replace(/^\#\!.*/, "");
-                var instrumented =  parseAndModify(inFile,{loc:true,comment:true}, _blanket._addTracking(inFileName));
+                var instrumented =  parseAndModify(inFile,{locations:true,comment:true}, _blanket._addTracking(inFileName));
                 instrumented = _blanket._trackingSetup(inFileName,sourceArray)+instrumented;
                 if (_blanket.options("sourceURL")){
                     instrumented += "\n//@ sourceURL="+inFileName.replace("http://","");
