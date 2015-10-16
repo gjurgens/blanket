@@ -56,6 +56,38 @@ module.exports = function(grunt) {
         src: ['node_modules/acorn/dist/acorn.js'],
         dest: '.tmp/acorn.js'
       },
+      isArguments: {
+        options: {
+          banner: '(function(module){\n',
+          footer: '\nwindow.isArguments = module.exports;\n})({exports: {}});'
+        },
+        src: ['node_modules/object-keys/isArguments.js'],
+        dest: '.tmp/isArguments.js'
+      },
+      forEach: {
+        options: {
+          banner: '(function(module){\n',
+          footer: '\nwindow.forEach = module.exports;\n})({exports: {}});'
+        },
+        src: ['node_modules/foreach/index.js'],
+        dest: '.tmp/forEach.js'
+      },
+      isArray: {
+        options: {
+          banner: '(function(module){\n',
+          footer: '\nwindow.isArray = module.exports;\n})({exports: {}});'
+        },
+        src: ['node_modules/isarray/index.js'],
+        dest: '.tmp/isarray.js'
+      },
+      objectKeys: {
+        options: {
+          banner: '(function(require,module){\n',
+          footer: '\nwindow.objectKeys =  module.exports;\n})(function(){return isArguments;},{exports: {}});'
+        },
+        src: ['node_modules/object-keys/index.js'],
+        dest: '.tmp/object-keys.js'
+      },
       falafel: {
         options: {
           banner: '/*!\n' +
@@ -63,7 +95,7 @@ module.exports = function(grunt) {
                   ' * https://github.com/substack/node-falafel\n' +
                   ' */\n\n' +
                   '(function(require,module){\n',
-          footer: '\nwindow.falafel = module.exports;})(function(){return {parse: acorn.parse};},{exports: {}});'
+          footer: '\nwindow.falafel = module.exports;})(function(moduleName){switch(moduleName){case "acorn":\nreturn {parse: acorn.parse};\ncase "object-keys":\nreturn objectKeys;\ncase "foreach":\nreturn forEach;\ncase "isarray":\nreturn isArray;}},{exports: {}});'
         },
         src: ['node_modules/falafel/index.js'],
         dest: '.tmp/falafel.js'
@@ -75,6 +107,10 @@ module.exports = function(grunt) {
         src: [
           'src/qunit/noautorun.js',
           '<%= concat.acorn.dest %>',
+          '<%= concat.isArguments.dest %>',
+          '<%= concat.forEach.dest %>',
+          '<%= concat.isArray.dest %>',
+          '<%= concat.objectKeys.dest %>',
           '<%= concat.falafel.dest %>',
           'src/blanket.js',
           'src/blanket_browser.js',
@@ -91,6 +127,10 @@ module.exports = function(grunt) {
         },
         src: [
           '<%= concat.acorn.dest %>',
+          '<%= concat.isArguments.dest %>',
+          '<%= concat.forEach.dest %>',
+          '<%= concat.isArray.dest %>',
+          '<%= concat.objectKeys.dest %>',
           '<%= concat.falafel.dest %>',
           'src/blanket.js',
           'src/blanket_browser.js',
@@ -107,6 +147,10 @@ module.exports = function(grunt) {
         },
         src: [
           '<%= concat.acorn.dest %>',
+          '<%= concat.isArguments.dest %>',
+          '<%= concat.forEach.dest %>',
+          '<%= concat.isArray.dest %>',
+          '<%= concat.objectKeys.dest %>',
           '<%= concat.falafel.dest %>',
           'src/blanket.js',
           'src/blanket_browser.js',
