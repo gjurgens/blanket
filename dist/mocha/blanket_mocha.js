@@ -4344,7 +4344,8 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
         testReadyCallback:null,
         commonJS:false,
         instrumentCache:false,
-        modulePattern: null
+        modulePattern: null,
+        ecmaVersion: 5
     };
     
     if (inBrowser && typeof window.blanket !== 'undefined'){
@@ -4399,8 +4400,7 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
             //check instrumented hash table,
             //return instrumented code if available.
             var inFile = config.inputFile,
-                inFileName = config.inputFileName,
-                ecmaVersion = config.ecmaVersion;
+                inFileName = config.inputFileName;
             //check instrument cache
            if (_blanket.options("instrumentCache") && sessionStorage && sessionStorage.getItem("blanket_instrument_store-"+inFileName)){
                 if (_blanket.options("debug")) {console.log("BLANKET-Reading instrumentation from cache: ",inFileName);}
@@ -4410,7 +4410,7 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
                 _blanket._trackingArraySetup=[];
                 //remove shebang
                 inFile = inFile.replace(/^\#\!.*/, "");
-                var instrumented =  parseAndModify(inFile,{locations:true,comment:true,ecmaVersion:ecmaVersion}, _blanket._addTracking(inFileName));
+                var instrumented =  parseAndModify(inFile,{locations:true,comment:true,ecmaVersion:_blanket.options("ecmaVersion")}, _blanket._addTracking(inFileName));
                 instrumented = _blanket._trackingSetup(inFileName,sourceArray)+instrumented;
                 if (_blanket.options("sourceURL")){
                     instrumented += "\n//@ sourceURL="+inFileName.replace("http://","");

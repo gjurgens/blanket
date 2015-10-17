@@ -59,9 +59,7 @@ var blanketNode = function (userOptions,cli){
                 newOptions.customVariable = optionValue;
             }
             if (option === "data-cover-ecmaVersion"){
-                newOptions.ecmaVersion = optionValue;
-            } else {
-                newOptions.ecmaVersion = 5;
+                newOptions.ecmaVersion = parseInt(optionValue,10);
             }
             if (option === "data-cover-flags"){
                 newOptions.order = !optionValue.unordered;
@@ -159,8 +157,7 @@ var blanketNode = function (userOptions,cli){
 
                 blanket.instrument({
                     inputFile: content,
-                    inputFileName: inputFilename,
-                    ecmaVersion: _blanket.options("ecmaVersion")
+                    inputFileName: inputFilename
                 },function(instrumented){
                     var baseDirPath = blanket.normalizeBackslashes(path.dirname(filename))+'/.';
                     try{
